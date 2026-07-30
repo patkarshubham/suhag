@@ -80,6 +80,14 @@ export const categories: Category[] = [
     image: "/images/categories/gifts-favors.svg",
   },
   {
+    slug: "cosmetics",
+    name: "Cosmetics & Beauty",
+    tagline: "Bridal-ready beauty, delivered",
+    description:
+      "Skincare, makeup, and beauty essentials for the bride, groom, and wedding party — shop online, no enquiry needed.",
+    image: "/images/categories/cosmetics.svg",
+  },
+  {
     slug: "venues",
     name: "Venues",
     tagline: "Banquets, resorts & destination properties",

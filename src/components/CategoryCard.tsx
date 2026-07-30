@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import TiltCard from "@/components/motion/TiltCard";
 import { categoryIcons } from "@/lib/icons";
-import type { Category } from "@/data/categories";
+import type { Category } from "@/lib/categories";
 
 export default function CategoryCard({ category }: { category: Category }) {
   const Icon = categoryIcons[category.slug];

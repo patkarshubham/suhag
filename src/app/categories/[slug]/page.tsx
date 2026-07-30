@@ -5,13 +5,9 @@ import FadeIn from "@/components/motion/FadeIn";
 import RevealText from "@/components/motion/RevealText";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 import ProductCard from "@/components/ProductCard";
-import { categories, getCategory } from "@/data/categories";
-import { getProductsByCategory } from "@/data/products";
+import { getCategory } from "@/lib/categories";
+import { getProductsByCategory } from "@/lib/products";
 import { categoryIcons } from "@/lib/icons";
-
-export function generateStaticParams() {
-  return categories.map((c) => ({ slug: c.slug }));
-}
 
 export async function generateMetadata({
   params,
@@ -19,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategory(slug);
+  const category = await getCategory(slug);
   if (!category) return {};
   return {
     title: category.name,
@@ -33,10 +29,10 @@ export default async function CategoryPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const category = getCategory(slug);
+  const category = await getCategory(slug);
   if (!category) notFound();
 
-  const products = getProductsByCategory(category.slug);
+  const products = await getProductsByCategory(category.slug);
   const Icon = categoryIcons[category.slug];
 
   return (

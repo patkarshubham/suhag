@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import FadeIn from "@/components/motion/FadeIn";
 import SectionHeading from "@/components/SectionHeading";
 import ContactForm from "@/components/ContactForm";
+import { getCategories } from "@/lib/categories";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
     "Tell Suhag about your wedding and get connected with the right vendors across pooja samagri kits, invitations, wear, jewelry, decor, catering, photography, gifts, and venues.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const categories = await getCategories();
   return (
     <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8">
       <SectionHeading
@@ -21,7 +23,7 @@ export default function ContactPage() {
 
       <div className="mt-14 grid grid-cols-1 gap-12 lg:grid-cols-5">
         <FadeIn className="lg:col-span-3">
-          <ContactForm />
+          <ContactForm categories={categories} />
         </FadeIn>
 
         <FadeIn delay={0.15} className="lg:col-span-2">

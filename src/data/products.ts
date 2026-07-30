@@ -7,6 +7,9 @@ export type Product = {
   description: string;
   highlights: string[];
   badge?: string;
+  /** Seed-only, in rupees (converted to paise at seed time). Omit for "enquire only" products. */
+  mrpRupees?: number;
+  priceRupees?: number;
 };
 
 function productImages(key: string) {
@@ -552,6 +555,71 @@ const raw: RawProduct[] = [
     description:
       "An open-air rooftop garden with skyline views, ideal for intimate sangeet or reception nights.",
     highlights: ["Skyline views", "Open-air garden setting", "Ideal for intimate guest lists", "In-house lighting rig"],
+  },
+
+  // Cosmetics & Beauty — priced, cart-enabled products (unlike the
+  // enquire-only categories above), demonstrating MRP/discount pricing.
+  {
+    slug: "bridal-glow-skincare-kit",
+    name: "Bridal Glow Skincare Kit",
+    categorySlug: "cosmetics",
+    badge: "Bestseller",
+    mrpRupees: 2999,
+    priceRupees: 2199,
+    description:
+      "A 5-step pre-wedding skincare routine — cleanser, exfoliant, brightening serum, moisturizer, and sheet masks — built for the weeks before the big day.",
+    highlights: [
+      "5-step routine for 2–4 weeks of prep",
+      "Brightening vitamin C serum",
+      "6 hydrating sheet masks included",
+      "Dermatologically tested",
+    ],
+  },
+  {
+    slug: "long-wear-matte-lipstick",
+    name: "Long-Wear Matte Lipstick",
+    categorySlug: "cosmetics",
+    mrpRupees: 899,
+    priceRupees: 699,
+    description: "A transfer-proof matte lipstick in a rich bridal red, built to last through the pheras.",
+    highlights: ["12-hour wear", "Transfer-proof matte finish", "Bridal red shade", "Enriched with vitamin E"],
+  },
+  {
+    slug: "hd-foundation-ivory-beige",
+    name: "HD Foundation — Ivory Beige",
+    categorySlug: "cosmetics",
+    mrpRupees: 1499,
+    priceRupees: 1199,
+    description: "A lightweight, camera-ready foundation with buildable, natural coverage for every ceremony.",
+    highlights: ["HD camera-ready finish", "Buildable coverage", "Lightweight, non-cakey formula", "Ivory Beige shade"],
+  },
+  {
+    slug: "kajal-kohl-duo-pack",
+    name: "Kajal & Kohl Duo Pack",
+    categorySlug: "cosmetics",
+    mrpRupees: 599,
+    priceRupees: 449,
+    description: "A smudge-proof kajal and kohl duo for definition that survives happy tears.",
+    highlights: ["Smudge-proof, waterproof formula", "Intense black pigment", "Duo pack (kajal + kohl)", "Easy glide, no tugging"],
+  },
+  {
+    slug: "bridal-makeup-brush-set",
+    name: "Bridal Makeup Brush Set",
+    categorySlug: "cosmetics",
+    badge: "New",
+    mrpRupees: 1999,
+    priceRupees: 1499,
+    description: "A 12-piece professional brush set for a flawless application, gift-boxed and ready to travel.",
+    highlights: ["12 professional brushes", "Soft, cruelty-free bristles", "Travel pouch included", "Gift-ready packaging"],
+  },
+  {
+    slug: "herbal-ubtan-face-pack",
+    name: "Herbal Ubtan Face Pack",
+    categorySlug: "cosmetics",
+    mrpRupees: 799,
+    priceRupees: 599,
+    description: "A traditional turmeric-and-sandalwood ubtan for the haldi glow that lasts well past the ceremony.",
+    highlights: ["Turmeric & sandalwood blend", "For pre-wedding glow rituals", "Suitable for all skin types", "100g jar"],
   },
 ];
 

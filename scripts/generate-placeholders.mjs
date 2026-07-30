@@ -17,6 +17,7 @@ const categories = [
   { slug: "photography", label: "Photography & Films", from: "#e3b8ac", to: "#f3e9db", glyph: "◎" },
   { slug: "gifts-favors", label: "Gifts & Favors", from: "#d9b98a", to: "#efd9d2", glyph: "❀" },
   { slug: "venues", label: "Venues", from: "#b8925a", to: "#e3b8ac", glyph: "⌂" },
+  { slug: "cosmetics", label: "Cosmetics & Beauty", from: "#efd9d2", to: "#e3b8ac", glyph: "❀" },
 ];
 
 // Pooja samagri kits each get their own unique pair of images (rather than

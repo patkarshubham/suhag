@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingBag, User } from "lucide-react";
 import { cn, whatsappLink } from "@/lib/utils";
 
 const links = [
@@ -14,7 +14,13 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({
+  cartCount = 0,
+  isLoggedIn = false,
+}: {
+  cartCount?: number;
+  isLoggedIn?: boolean;
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -53,6 +59,25 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <Link
+            href="/cart"
+            aria-label="Cart"
+            className="relative text-charcoal-soft transition-colors hover:text-maroon"
+          >
+            <ShoppingBag size={20} />
+            {cartCount > 0 && (
+              <span className="absolute -right-2 -top-2 flex size-4 items-center justify-center rounded-full bg-maroon text-[10px] font-semibold text-ivory">
+                {cartCount > 9 ? "9+" : cartCount}
+              </span>
+            )}
+          </Link>
+          <Link
+            href={isLoggedIn ? "/account" : "/account/login"}
+            aria-label="Account"
+            className="text-charcoal-soft transition-colors hover:text-maroon"
+          >
+            <User size={20} />
+          </Link>
           <a
             href={whatsappLink("Hi Suhag! I'd like to know more about your wedding services.")}
             target="_blank"
@@ -63,14 +88,24 @@ export default function Navbar() {
           </a>
         </nav>
 
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-          className="text-charcoal md:hidden"
-        >
-          {open ? <X size={26} /> : <Menu size={26} />}
-        </button>
+        <div className="flex items-center gap-4 md:hidden">
+          <Link href="/cart" aria-label="Cart" className="relative text-charcoal">
+            <ShoppingBag size={22} />
+            {cartCount > 0 && (
+              <span className="absolute -right-2 -top-2 flex size-4 items-center justify-center rounded-full bg-maroon text-[10px] font-semibold text-ivory">
+                {cartCount > 9 ? "9+" : cartCount}
+              </span>
+            )}
+          </Link>
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+            className="text-charcoal"
+          >
+            {open ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -96,6 +131,13 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+              <Link
+                href={isLoggedIn ? "/account" : "/account/login"}
+                onClick={() => setOpen(false)}
+                className="rounded-lg px-3 py-3 text-base font-medium text-charcoal-soft hover:bg-blush/40"
+              >
+                {isLoggedIn ? "My Account" : "Sign In"}
+              </Link>
               <a
                 href={whatsappLink("Hi Suhag! I'd like to know more about your wedding services.")}
                 target="_blank"

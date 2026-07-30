@@ -3,6 +3,8 @@ import { Playfair_Display, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFAB from "@/components/WhatsAppFAB";
+import { getCurrentUserId } from "@/lib/customerSession";
+import { getCartCount } from "@/lib/cart";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -31,18 +33,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const userId = await getCurrentUserId();
+  const cartCount = await getCartCount(userId);
+
   return (
     <html
       lang="en"
       className={`${playfair.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ivory text-charcoal">
-        <Navbar />
+        <Navbar cartCount={cartCount} isLoggedIn={Boolean(userId)} />
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppFAB />

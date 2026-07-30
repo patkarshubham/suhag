@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx --yes playwright screenshot --viewport-size=1440,900 --full-page \"http://localhost:3000/about\" \"/private/tmp/claude-501/-Users-apple-suhag/3cbaa561-60c8-4bdf-85a0-d228559e39da/scratchpad/about-desktop.png\")"
+      "Bash(npx --yes playwright screenshot --viewport-size=1440,900 --full-page \"http://localhost:3000/about\" \"/private/tmp/claude-501/-Users-apple-suhag/3cbaa561-60c8-4bdf-85a0-d228559e39da/scratchpad/about-desktop.png\")",
+      "Bash(npm install *)"
     ]
   }
 }

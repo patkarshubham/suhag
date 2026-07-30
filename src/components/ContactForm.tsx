@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, CheckCircle2 } from "lucide-react";
-import { categories } from "@/data/categories";
+import type { Category } from "@/lib/categories";
 import { cn, whatsappLink } from "@/lib/utils";
 
-export default function ContactForm() {
+export default function ContactForm({ categories }: { categories: Category[] }) {
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [weddingDate, setWeddingDate] = useState("");

@@ -8,8 +8,12 @@ import SectionHeading from "@/components/SectionHeading";
 import AnimatedButton from "@/components/AnimatedButton";
 import CategoryCard from "@/components/CategoryCard";
 import ProductCard from "@/components/ProductCard";
-import { categories } from "@/data/categories";
-import { getProduct } from "@/data/products";
+import { getCategories } from "@/lib/categories";
+import { getProduct, getNewestProducts } from "@/lib/products";
+
+// Product/category data comes from the database and can change any time an
+// admin adds/edits/deletes something, so this page must render per-request.
+export const dynamic = "force-dynamic";
 
 const featuredSlugs = [
   "royal-gold-foil-invitation-set",
@@ -24,7 +28,7 @@ const featuredSlugs = [
 
 const stats = [
   { value: 500, suffix: "+", label: "Weddings styled" },
-  { value: 10, suffix: "", label: "Curated categories" },
+  { value: 11, suffix: "", label: "Curated categories" },
   { value: 1000, suffix: "+", label: "Trusted vendors" },
   { value: 50, suffix: "+", label: "Cities covered" },
 ];
@@ -57,7 +61,14 @@ const testimonials = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const categories = await getCategories();
+  const [ritualKits, featured, newest] = await Promise.all([
+    Promise.all(ritualKitSlugs.map(getProduct)),
+    Promise.all(featuredSlugs.map(getProduct)),
+    getNewestProducts(8),
+  ]);
+
   return (
     <div>
       {/* Hero */}
@@ -107,15 +118,14 @@ export default function Home() {
             className="[&_h2]:text-ivory [&_p]:text-ivory/80"
           />
           <StaggerContainer className="mt-14 grid grid-cols-2 gap-6 lg:grid-cols-4">
-            {ritualKitSlugs.map((slug) => {
-              const kit = getProduct(slug);
-              if (!kit) return null;
-              return (
-                <StaggerItem key={slug}>
-                  <ProductCard product={kit} />
-                </StaggerItem>
-              );
-            })}
+            {ritualKits.map(
+              (kit) =>
+                kit && (
+                  <StaggerItem key={kit.slug}>
+                    <ProductCard product={kit} />
+                  </StaggerItem>
+                )
+            )}
           </StaggerContainer>
           <FadeIn delay={0.2} className="mt-14 flex justify-center">
             <AnimatedButton href="/categories/pooja-samagri" className="!bg-ivory !text-maroon hover:!bg-ivory-deep">
@@ -130,7 +140,7 @@ export default function Home() {
       <section id="categories" className="mx-auto max-w-7xl px-6 py-24 sm:px-8">
         <SectionHeading
           eyebrow="What we cover"
-          title="Ten categories, one curated catalog"
+          title="Eleven categories, one curated catalog"
           subtitle="Every vendor and product is grouped by what your wedding actually needs — browse a category, shortlist what fits, and enquire directly."
         />
         <StaggerContainer className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -151,17 +161,32 @@ export default function Home() {
             subtitle="A glimpse of what's inside each category — real vendor listings replace these as your catalog grows."
           />
           <StaggerContainer className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
-            {featuredSlugs.map((slug) => {
-              const product = getProduct(slug);
-              if (!product) return null;
-              return (
-                <StaggerItem key={slug}>
-                  <ProductCard product={product} />
-                </StaggerItem>
-              );
-            })}
+            {featured.map(
+              (product) =>
+                product && (
+                  <StaggerItem key={product.slug}>
+                    <ProductCard product={product} />
+                  </StaggerItem>
+                )
+            )}
           </StaggerContainer>
         </div>
+      </section>
+
+      {/* Newly added */}
+      <section className="mx-auto max-w-7xl px-6 py-24 sm:px-8">
+        <SectionHeading
+          eyebrow="Fresh in the catalog"
+          title="Newly added"
+          subtitle="The latest products added to Suhag — including anything just added by our team."
+        />
+        <StaggerContainer className="mt-14 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+          {newest.map((product) => (
+            <StaggerItem key={product.slug}>
+              <ProductCard product={product} />
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
       </section>
 
       {/* Stats */}
@@ -231,5 +256,3 @@ export default function Home() {
     </div>
   );
 }
-
-export const dynamic = "force-static";

@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="1100" viewBox="0 0 900 1100">
   <defs>
-    <linearGradient id="g-54ekc7" gradientTransform="rotate(205)">
+    <linearGradient id="g-fgusd8" gradientTransform="rotate(205)">
       <stop offset="0%" stop-color="#e3b8ac" />
       <stop offset="100%" stop-color="#f3e9db" />
     </linearGradient>
   </defs>
-  <rect width="900" height="1100" fill="url(#g-54ekc7)" />
+  <rect width="900" height="1100" fill="url(#g-fgusd8)" />
   <circle cx="738" cy="198" r="108" fill="#ffffff" opacity="0.10" />
   <circle cx="108" cy="968" r="162" fill="#2b2420" opacity="0.05" />
   <text x="50%" y="54%" font-family="Georgia, 'Playfair Display', serif" font-size="198" fill="#2b2420" opacity="0.16" text-anchor="middle" dominant-baseline="middle">✦</text>

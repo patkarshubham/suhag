@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { Globe, Share2, Mail, Phone } from "lucide-react";
-import { categories } from "@/data/categories";
+import { getCategories } from "@/lib/categories";
 
-export default function Footer() {
+export default async function Footer() {
+  const categories = await getCategories();
   const year = new Date().getFullYear();
 
   return (
